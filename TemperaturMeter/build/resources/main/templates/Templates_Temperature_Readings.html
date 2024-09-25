@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Temperature Readings</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+<h1>All Temperature Readings</h1>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Temperature (°C)</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="reading : ${readings}">
+    <td th:text="${reading.id}"></td>
+    <td th:text="${reading.temperature}"></td>
+    <td th:text="${reading.timestamp}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Declares this document as an HTML5 document and includes the Thymeleaf XML namespace for server-side processing. -->
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Specifies the character encoding of the document to UTF-8, ensuring proper display of characters. -->
+
+  <title>Test Thymeleaf</title>
+  <!-- Sets the title of the HTML page that appears in the browser tab.
+       In this case, it's a static title, "Test Thymeleaf". -->
+</head>
+
+<body>
+<h1 th:text="${message}"></h1>
+<!-- A heading (h1) element where the content is dynamically replaced by the value of the 'message' variable
+     passed from the backend using Thymeleaf.
+     'th:text' dynamically injects the 'message' variable, so the content of the h1 tag will display this message.
+     If Thymeleaf is not active, the content will be empty. -->
+</body>
+
+</html>
+
+<!--
+Thymeleaf Syntax (th:text):
+  th:text="${message}" is a Thymeleaf expression that replaces the inner content of the <h1> element with
+  the value of the message variable passed from the backend.
+  If message is not available, the heading will remain empty.
+
+Static Page Title:
+  The page's title is set to a static string, "Test Thymeleaf", which appears in the browser tab.
+
+Dynamic Content:
+The message variable is expected to be passed from the server-side (likely from a Spring controller)
+and will be displayed inside the <h1> element.
+-->

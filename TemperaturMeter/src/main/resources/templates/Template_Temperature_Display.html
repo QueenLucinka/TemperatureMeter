@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Declares this document as an HTML5 document and includes the Thymeleaf XML namespace for server-side processing. -->
+
+<head>
+  <title th:text="${type} + ' Temperature'">Temperature Display</title>
+  <!-- Dynamically sets the page title using the Thymeleaf expression.
+       The page title will be something like "Maximum Temperature" or "Minimum Temperature".
+       If the Thymeleaf engine is not active, it will default to "Temperature Display". -->
+
+  <link th:href="@{/css/styles.css}" rel="stylesheet" />
+  <!-- Links to an external CSS file for styling the page.
+       The `th:href` attribute ensures the correct context path is used in the URL.
+       If Thymeleaf is not processing this, the link will not work without the context path.
+       Replace 'styles.css' with the actual path to your CSS file. -->
+</head>
+
+<body>
+<h1 th:text="${type} + ' Temperature in the ' + timeFrame">Temperature Data</h1>
+<!-- The main heading of the page that displays a dynamic text, e.g., "Maximum Temperature in the last 5 minutes".
+     The 'type' and 'timeFrame' variables are dynamically set in the backend and passed to the template.
+     If not available, the heading will default to "Temperature Data". -->
+
+<div>
+  <p th:if="${temperature != null}">
+    <!-- This paragraph will be displayed if the 'temperature' variable is not null, i.e., temperature data is available. -->
+
+    The <span th:text="${type}"></span> temperature in the <span th:text="${timeFrame}"></span> is:
+    <strong th:text="${temperature} + ' °C'">0.0 °C</strong>
+    <!-- Displays the temperature and its type (e.g., maximum or minimum) along with the time frame.
+         The 'temperature' value is dynamically injected and displayed, followed by the "°C" unit.
+         If Thymeleaf is not active, it will show "0.0 °C" as a default. -->
+  </p>
+
+  <p th:if="${temperature == null}">
+    <!-- This paragraph will be displayed if the 'temperature' variable is null, i.e., no temperature data is available. -->
+
+    No temperature data available for the <span th:text="${timeFrame}"></span>.
+    <!-- Informs the user that there is no temperature data available for the specified time frame.
+         The 'timeFrame' variable is dynamically injected into the text. -->
+  </p>
+</div>
+
+<!-- Add a link to return to the main readings page -->
+<p><a th:href="@{/api/temperature/readings}">Back to All Readings</a></p>
+<!-- This anchor tag creates a link that redirects the user to the main temperature readings page.
+     The 'th:href' attribute constructs the correct URL, considering the application's context path.
+     If Thymeleaf is not processed, the link might not work properly without the context path. -->
+
+</body>
+</html>
+
+
+<!--
+Thymeleaf Syntax (th:...):
+  th:text, th:href, and th:if are Thymeleaf attributes that dynamically render content on the server side.
+  For example, th:text="${type}" replaces the inner content of the tag with the value of the type variable passed from the backend.
+
+Conditions:
+  The th:if attribute conditionally displays elements. If temperature is available (!= null), it displays the temperature;
+  otherwise, it shows a message indicating no data is available.
+
+Dynamic Variables:
+  Variables such as ${type}, ${timeFrame}, and ${temperature} are dynamically passed to the template from the controller.
+
+Context Path (th:href):
+  Thymeleaf’s th:href="@{...}" ensures that the link to the CSS file or other resources works correctly,
+  even when deployed in different environments (i.e., different context paths).
+
+-->

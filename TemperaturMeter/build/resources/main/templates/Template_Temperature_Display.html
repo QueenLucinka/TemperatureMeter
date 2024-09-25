@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${type} + ' Temperature'">Temperature Display</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet" />  <!-- Link to an external CSS file if needed -->
+</head>
+<body>
+<h1 th:text="${type} + ' Temperature in the ' + timeFrame">Temperature Data</h1>
+
+<div>
+  <p th:if="${temperature != null}">
+    The <span th:text="${type}"></span> temperature in the <span th:text="${timeFrame}"></span> is:
+    <strong th:text="${temperature} + ' °C'">0.0 °C</strong>
+  </p>
+
+  <p th:if="${temperature == null}">
+    No temperature data available for the <span th:text="${timeFrame}"></span>.
+  </p>
+</div>
+
+<!-- Add a link to return to the main readings page -->
+<p><a th:href="@{/api/temperature/readings}">Back to All Readings</a></p>
+</body>
+</html>

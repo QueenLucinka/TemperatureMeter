@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Declares this document as an HTML5 document and includes the Thymeleaf XML namespace for server-side processing. -->
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Specifies the character encoding of the document to UTF-8, ensuring that special characters are displayed correctly. -->
+
+  <title>Temperature Readings</title>
+  <!-- Sets the title of the HTML page that appears in the browser tab.
+       In this case, it's a static title, "Temperature Readings". -->
+
+  <style>
+    /* Inline CSS styles for the table and its elements */
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      /* Ensures the table takes up the full width of its container. */
+    }
+
+    table, th, td {
+      border: 1px solid black;
+      /* Adds a 1px solid black border around the entire table, including the headers and data cells. */
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      /* Adds padding inside the table cells and aligns text to the left. */
+    }
+
+    th {
+      background-color: #f2f2f2;
+      /* Sets a light grey background color for the table headers to differentiate them from the data cells. */
+    }
+  </style>
+  <!-- The style section defines inline CSS rules to control the table's appearance.
+       This could be moved to an external CSS file for better reusability. -->
+</head>
+
+<body>
+<h1>All Temperature Readings</h1>
+<!-- Static heading for the page indicating that the table shows all temperature readings. -->
+
+<table>
+  <!-- Creates the table that will display the temperature readings. -->
+
+  <thead>
+  <!-- The table header section. -->
+  <tr>
+    <!-- A single row for the table headers. -->
+    <th>ID</th>
+    <!-- Column header for the ID of each temperature reading. -->
+    <th>Temperature (°C)</th>
+    <!-- Column header for the temperature values in degrees Celsius. -->
+    <th>Timestamp</th>
+    <!-- Column header for the timestamp of each temperature reading. -->
+  </tr>
+  </thead>
+
+  <tbody>
+  <!-- The table body section where the dynamic temperature data will be displayed. -->
+
+  <tr th:each="reading : ${readings}">
+    <!-- Loops over the 'readings' list passed from the backend, creating one row per temperature reading.
+         'th:each' is a Thymeleaf attribute that iterates over the collection of readings.
+         'reading' represents each individual reading in the loop. -->
+
+    <td th:text="${reading.id}"></td>
+    <!-- Displays the ID of the current temperature reading in a table cell.
+         The 'th:text' attribute dynamically injects the value of 'reading.id'. -->
+
+    <td th:text="${reading.temperature}"></td>
+    <!-- Displays the temperature value of the current reading.
+         The 'th:text' attribute dynamically injects the value of 'reading.temperature'. -->
+
+    <td th:text="${reading.timestamp}"></td>
+    <!-- Displays the timestamp of the current temperature reading.
+         The 'th:text' attribute dynamically injects the value of 'reading.timestamp'. -->
+  </tr>
+
+  </tbody>
+</table>
+<!-- The table dynamically displays temperature data for each reading in the 'readings' collection. -->
+
+</body>
+</html>
+
+
+
+
+<!--
+Thymeleaf Syntax (th:...):
+  th:each: This is a Thymeleaf directive that iterates over the readings collection (passed from the controller)
+  and dynamically creates table rows for each item.
+  th:text: Replaces the text inside the table cells with dynamic data from each TemperatureReading object (ID, temperature, and timestamp).
+
+Table Structure:
+  The table has three columns: ID, Temperature (°C), and Timestamp.
+  Each row in the table corresponds to one temperature reading, with dynamic data rendered for each column.
+
+Inline CSS:
+  The table, th, and td styles are defined to make the table responsive, with borders, padding,
+  and background color for headers. This style could be moved to an external CSS file for better separation of concerns.
+
+Dynamic Data:
+  The Thymeleaf template expects a List<TemperatureReading> object passed from the backend under the variable name ${readings}.
+  The ID, temperature, and timestamp of each TemperatureReading are displayed in their respective columns.
+-->
